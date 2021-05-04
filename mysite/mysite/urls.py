@@ -15,9 +15,27 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework import routers
+from polls import views
 
+router = routers.DefaultRouter()
+router.register(r'questions', views.QuestionViewSet)
+router.register(r'choices', views.ChoiceViewSet)
+
+
+# Wire up our API using automatic URL routing.
+# Additionally, we include login URLs for the browsable API.
+# Because we're using viewsets instead of views, we can automatically generate
+# the URL conf for our API, by simply registering the viewsets with a router class.
+urlpatterns = [
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+]
+
+'''
 urlpatterns = [
     #include: referencia a urls.py de outros apps
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
+'''
