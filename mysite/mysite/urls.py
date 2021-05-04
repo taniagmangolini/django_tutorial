@@ -29,7 +29,8 @@ router.register(r'choices', views.ChoiceViewSet)
 # the URL conf for our API, by simply registering the viewsets with a router class.
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('', include('snippets.urls')),
 ]
 
 '''
