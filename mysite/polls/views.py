@@ -3,7 +3,6 @@ from django.template import loader
 from django.shortcuts import get_object_or_404, render
 from .models import Question, Choice
 from rest_framework import viewsets
-from rest_framework import permissions
 from .serializers import QuestionSerializer, ChoiceSerializer
 
 def index(request):
@@ -12,6 +11,7 @@ def index(request):
     context = {
         'latest_question_list' : latest_question_list,
     }
+
     return HttpResponse(template.render(context, request))
 
 """
@@ -51,7 +51,6 @@ class QuestionViewSet(viewsets.ModelViewSet):
     """
     queryset = Question.objects.all().order_by('pub_date')
     serializer_class = QuestionSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class ChoiceViewSet(viewsets.ModelViewSet):
@@ -60,4 +59,3 @@ class ChoiceViewSet(viewsets.ModelViewSet):
     """
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
-    permission_classes = [permissions.IsAuthenticated]

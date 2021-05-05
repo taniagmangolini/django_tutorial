@@ -17,10 +17,12 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from polls import views
+from snippets import views as snippets
 
 router = routers.DefaultRouter()
 router.register(r'questions', views.QuestionViewSet)
 router.register(r'choices', views.ChoiceViewSet)
+router.register(r'snippets', snippets.SnippetViewSet)
 
 
 # Wire up our API using automatic URL routing.
@@ -28,9 +30,10 @@ router.register(r'choices', views.ChoiceViewSet)
 # Because we're using viewsets instead of views, we can automatically generate
 # the URL conf for our API, by simply registering the viewsets with a router class.
 urlpatterns = [
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),  # login
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include('snippets.urls')),
+    path('', include('polls.urls'))
 ]
 
 '''
