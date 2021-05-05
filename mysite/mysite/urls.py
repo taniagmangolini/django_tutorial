@@ -19,11 +19,12 @@ from rest_framework import routers
 from polls import views
 from snippets import views as snippets
 
+
 router = routers.DefaultRouter()
 router.register(r'questions', views.QuestionViewSet)
 router.register(r'choices', views.ChoiceViewSet)
 router.register(r'snippets', snippets.SnippetViewSet)
-
+router.register(r'users', snippets.UserViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -32,8 +33,8 @@ router.register(r'snippets', snippets.SnippetViewSet)
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),  # login
     path('', include(router.urls)),
-    path('', include('snippets.urls')),
-    path('', include('polls.urls'))
+    #path('', include('snippets.urls')),
+    #path('', include('polls.urls'))
 ]
 
 '''
